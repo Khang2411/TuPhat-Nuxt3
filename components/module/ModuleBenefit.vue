@@ -40,7 +40,7 @@ defineProps({
 
                         <div class="featured-content">
                             <div class="featured-title">
-                                <h4>{{ benefit.item_slide_title }}</h4>
+                                <p>{{ benefit.item_slide_title }}</p>
                             </div>
                             <div class="featured-desc">
                                 <p class="mb-2">{{ benefit.item_slide_desc }}</p>
@@ -57,7 +57,7 @@ defineProps({
     </section>
 </template>
 <style scoped>
-h4 {
+.featured-title {
     font-size: 1.25rem;
 }
 

@@ -22,7 +22,7 @@ defineProps({
                                 <Vue3Odometer class="o-text-odometer" format="d"
                                     :data-odometer="statistic.item_slide_value" />
                                 <span>{{statistic.item_slide_value}}+</span>
-                                <h6>{{ statistic.item_slide_title }}</h6>
+                                <p class="counter-icon-title">{{ statistic.item_slide_title }}</p>
                             </div>
                         </div>
                     </div>
@@ -48,7 +48,7 @@ section {
     margin-right: 20px;
 }
 
-.counter h6 {
+.counter-icon-title {
     display: block;
     color: #4a5156;
     font-size: 18px;
