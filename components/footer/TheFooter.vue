@@ -84,19 +84,20 @@ const data = await $fetch(`${apiURL}/footer`)
                         <ul class="list-inline p-0 m-0 social-icons footer-social">
                             <li class="list-inline-item" v-for="(social, index) in JSON.parse(logoSocial.value)"
                                 :key="index">
-                                <a :href="social.item_slide_url" target="_blank" v-html="social.item_slide_svg" v-if="social.imgorsvg==='svg'"></a>
-                                <a :href="social.item_slide_url" target="_blank" v-else>
+                                <a :href="social.item_slide_url" target="_blank" aria-label="social" v-html="social.item_slide_svg" v-if="social.imgorsvg==='svg'"></a>
+                                <a :href="social.item_slide_url" target="_blank" aria-label="social" v-else>
                                     <img :src="social.item_slide_image" :alt="social.item_slide_image_alt" width="24" height="24">
                                 </a>
                             </li>
                         </ul>
                     </div>
                     <div class="col-lg-6 col-md-12 text-lg-end mt-4 mt-lg-0 text-white"
-                        v-html="data?.footer_data ? JSON.parse(data?.footer_data).copyright : ''"> </div>
+                        v-html="data?.footer_data ? JSON.parse(data?.footer_data).copyright : ''"></div>
                 </div>
             </div>
         </div>
     </footer>
+    
 </template>
 
 <style scoped>

@@ -72,18 +72,18 @@ defineProps({
                         <div class="icon" style="background-color: #003789;">
                             <span class="flaticon-maintenance"></span>
                         </div>
-                        <h4>Bền bỉ</h4>
+                        <h5>Bền bỉ</h5>
                     </div>
                     <div class="icon-box wow fadeInUp" data-wow-duration="1500ms">
                         <div class="icon" style="background-color: #003789;"><span class="flaticon-settings"></span>
                         </div>
-                        <h4>Chắc chắn</h4>
+                        <h5>Chắc chắn</h5>
                     </div>
                     <div class="icon-box wow fadeInUp" data-wow-duration="1500ms">
                         <div class="icon" style="background-color: #003789;"><span
                                 class="flaticon-industrial-robot"></span>
                         </div>
-                        <h4>Chất lượng</h4>
+                        <h5>Chất lượng</h5>
                     </div>
                 </div>
             </div>
@@ -197,7 +197,7 @@ defineProps({
     margin-right: 20px;
 }
 
-.testimonials-section .icon-box h4 {
+.testimonials-section .icon-box h5 {
     position: relative;
     font-size: 20px;
     font-weight: 600;

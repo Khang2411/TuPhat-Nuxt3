@@ -14,8 +14,9 @@ defineProps({
                     <!-- section-title -->
                     <div class="section-title style2 clearfix">
                         <h2 class="title" v-html="module.module_title"></h2>
-                        <p class="content" v-html="module.module_description"></p>
-                    </div><!-- section-title end -->
+                        <div class="content" v-html="module.module_description"></div>
+                    </div>
+                    <!-- section-title end -->
                 </div>
                 <div class="col-lg-3 col-md-12 text-lg-end text-md-start"
                     style="margin-bottom: 35px; margin-top: 30px;">
@@ -39,7 +40,7 @@ defineProps({
 
                         <div class="featured-content">
                             <div class="featured-title">
-                                <h5>{{ benefit.item_slide_title }}</h5>
+                                <h4>{{ benefit.item_slide_title }}</h4>
                             </div>
                             <div class="featured-desc">
                                 <p class="mb-2">{{ benefit.item_slide_desc }}</p>
@@ -56,6 +57,10 @@ defineProps({
     </section>
 </template>
 <style scoped>
+h4 {
+    font-size: 1.25rem;
+}
+
 .ttm-btn.ttm-btn-color-black.ttm-btn-style-border {
     color: #ffff;
     background-color: transparent;

@@ -26,6 +26,30 @@ const setThumbsSwiper = (swiper) => {
 
 const data = await $fetch(`${apiURL}/${route.params.path}-pr${route.params.id}?view=${!isMobile() ? 'desktop' : 'mobile'}`)
 
+const handleDesc = () => {
+    document.getElementById("home").style.display = "block";
+    document.getElementById("profile").style.display = "none";
+    
+    document.getElementById("home").classList.add("show");
+    document.getElementById("profile").classList.remove("show");
+
+    document.getElementById("home-tab").classList.add("active");
+    document.getElementById("profile-tab").classList.remove("active");
+}
+
+const handleSpec = () => {
+    document.getElementById("home").style.display = "none";
+    document.getElementById("profile").style.display = "block";
+
+    document.getElementById("home").classList.remove("show");
+    document.getElementById("profile").classList.add("show");
+
+    document.getElementById("profile-tab").classList.add("active");
+    document.getElementById("home-tab").classList.remove("active");
+
+
+}
+
 const handleQuantity = (name) => {
     if (name === "minus") {
         if (Number(document.querySelector('.form-product-quantity').value) > 1) {
@@ -73,12 +97,12 @@ const handleBuyNow = (productId) => {
 }
 
 useSeoMeta({
-  title: data.product.product_name,
-  ogTitle: data.product.product_name,
-  description: data.product.product_name,
-  ogDescription: data.product.product_name,
-  ogImage: data.product.product_avatar,
-  twitterCard: 'summary_large_image',
+    title: data.product.product_name,
+    ogTitle: data.config_custom.meta_title ? data.config_custom.meta_title : data.product.product_name,
+    description: data.config_custom.meta_description ? data.config_custom.meta_description : data.product.product_name,
+    ogDescription: data.config_custom.meta_description ? data.config_custom.meta_description : data.product.product_name,
+    ogImage: data.product.product_avatar,
+    twitterCard: 'summary_large_image',
 })
 
 </script>
@@ -209,14 +233,15 @@ useSeoMeta({
                                 style="justify-content: center;border: unset;">
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home"
-                                        type="button" role="tab" aria-controls="home" aria-selected="true">Mô
-                                        tả</button>
+                                        type="button" role="tab" aria-controls="home" aria-selected="true"
+                                        @click="handleDesc">
+                                        Mô tả</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile"
-                                        type="button" role="tab" aria-controls="profile" aria-selected="false">Đặc điểm
-                                        kỹ
-                                        thuật</button>
+                                        type="button" role="tab" aria-controls="profile" aria-selected="false"
+                                        @click="handleSpec">
+                                        Đặc điểm kỹ thuật</button>
                                 </li>
                             </ul>
 

@@ -65,8 +65,8 @@ defineProps({
                                             </div>
 
                                             <div class="product-link mt-3">
-                                                <a class="add-cart" href="#" style="font-weight: 600;">
-                                                    <i class="las la-shopping-bag me-2"></i>Thêm Vào Giỏ Hàng </a>
+                                                <span class="add-cart" style="font-weight: 600;">
+                                                    <i class="las la-shopping-bag me-2"></i>Thêm Vào Giỏ Hàng </span>
                                             </div>
                                         </div>
                                     </div>

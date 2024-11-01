@@ -11,6 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
         <span class="loader-div"> </span>
       </div>
     </div>
+
     <Suspense>
       <template #default>
         <TheLayout>
@@ -18,14 +19,6 @@ import "bootstrap/dist/css/bootstrap.min.css"
             <NuxtPage />
           </main>
         </TheLayout>
-      </template>
-
-      <template #fallback>
-        <div id="ht-preloader">
-          <div class="loader clear-loader">
-            <span class="loader-div"> </span>
-          </div>
-        </div>
       </template>
     </Suspense>
   </div>

@@ -8,18 +8,23 @@ defineProps({
     <nav aria-label="..." class="mt-5">
         <ul class="pagination justify-content-center">
             <li class="page-item">
-                <a class="page-link text-dark" href="#">Trước</a>
+                <NuxtLink class="page-link text-dark"
+                    :to="{ query: { page: ($route.query.page && $route.query.page != 1) ? Number($route.query.page) - 1 : 1 } }">
+                    Trước
+                </NuxtLink>
             </li>
 
             <li class="page-item" v-for="(paginate, index) in links" :key="index">
-                <RouterLink :to="{ query: { page: Number(paginate.label) ? paginate.label : 1 } }" class="page-link"
+                <NuxtLink :to="{ query: { page: Number(paginate.label) ? paginate.label : 1 } }" class="page-link"
                     :class="($route.query.page ? $route.query.page : '1') === paginate.label ? 'page-current-active text-white' : 'text-dark'">
                     {{ paginate.label }}
-                </RouterLink>
+                </NuxtLink>
             </li>
 
             <li class="page-item">
-                <a class="page-link text-dark" href="#">Sau</a>
+                <NuxtLink class="page-link text-dark"
+                    :to="{ query: { page: $route.query.page && Number($route.query.page) + 1 } }">Sau
+                </NuxtLink>
             </li>
         </ul>
     </nav>

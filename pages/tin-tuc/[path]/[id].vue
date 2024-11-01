@@ -43,7 +43,7 @@ useSeoMeta({
                                         <li class="list-inline-item">
                                             <i class="las la-eye mr-1" style="vertical-align: text-bottom;"></i>
                                             <span class="cat-links">
-                                                <a href="#" rel="category tag">106</a>
+                                                <span>106</span>
                                             </span>
                                         </li>
                                     </ul>

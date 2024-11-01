@@ -14,12 +14,12 @@ defineProps({
                         <div class="single-partner-logo-box"
                             v-for="(partner, index) in JSON.parse(module.module_metadata).content_data" :key="index">
                             <div class="overlay-box text-center">
-                                <a href="#" v-if="partner.imgorsvg === 'image'">
+                                <span v-if="partner.imgorsvg === 'image'">
                                     <img :src="partner.item_slide_image" :alt="partner.item_slide_image_alt"
                                         :title="partner.item_slide_image_title" width="100">
-                                </a>
+                                </span>
 
-                                <a href="#" v-else v-html="partner.item_slide_svg"></a>
+                                <span v-else v-html="partner.item_slide_svg"></span>
                                     
                             </div>
                         </div>

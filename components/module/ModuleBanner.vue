@@ -30,8 +30,8 @@ defineProps({
                     <div class="container">
                         <div class="row">
                             <div class="col-xxl-7 col-xl-8 col-lg-10 col-12">
-                                <h2 class="mb-4" data-animate="bottom">{{ banner.item_slide_title }}</h2>
-                                <p data-animate="bottom">{{ banner.item_slide_desc }}</p>
+                                <h2 class="mb-4 slide_title" data-animate="bottom">{{ banner.item_slide_title }}</h2>
+                                <p data-animate="bottom" class="slide_desc">{{ banner.item_slide_desc }}</p>
 
                                 <div class="btn-box mt-5 button-seemore" data-animate="bottom"
                                     v-if="banner.item_slide_url">
@@ -46,27 +46,6 @@ defineProps({
                 </div>
             </swiper-slide>
         </swiper>
-
-        <!-- <div class="banner-owl-slider owl-carousel no-pb" data-dots="false" data-nav="true">
-            <div class="item" v-for="(banner, index) in module_metadata.content_data" :key="index">
-                <div class="slider-img" :data-bg-img="banner.item_slide_image"></div>
-                <div class="banner-content">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xxl-7 col-xl-8 col-lg-10 col-12">
-                                <h3 class="mb-4">{{ banner.item_slide_title }}</h3>
-                                <p>{{ banner.item_slide_desc }}</p>
-                                <div class="btn-box mt-5">
-                                    <a class="primary-btn" :href="banner.item_slide_url">
-                                        <span>{{ banner.item_slide_title_url }}</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
     </section>
 </template>
 
@@ -96,8 +75,7 @@ defineProps({
 
 .banner-content {
     position: absolute;
-    left: 60px;
-    top: 70px;
+    top: 80px;
 }
 
 [data-animate] {
@@ -196,5 +174,17 @@ defineProps({
     z-index: 9;
     position: relative;
     color: #ffffff;
+}
+
+@media screen and (max-width: 768px) {
+    .slide_title{
+        font-size: 16px;
+    }
+    .slide_desc{
+        font-size: 14px;;
+    }
+    .primary-btn{
+        padding: 8px 25px;
+    }
 }
 </style>

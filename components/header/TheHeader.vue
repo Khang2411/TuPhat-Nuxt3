@@ -39,7 +39,7 @@ const handleShowMenuGrand = (index) => {
                                 </button>
 
                                 <NuxtLink to="/" class="navbar-brand logo">
-                                    <img class="img-fluid" :src="data?.logo_footer" width="60">
+                                    <img class="img-fluid" :src="data?.logo_footer" width="60" :alt="data.seo_title">
                                 </NuxtLink>
                             </div>
 
@@ -56,7 +56,7 @@ const handleShowMenuGrand = (index) => {
 
                                         <span class="dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown"
                                             @click="handleShowMenuChild(index)" v-if="menu.children.length > 0"
-                                            style="position: absolute;right:-10px;top:5px" aria-label="dropdown">
+                                            style="position: absolute;right:-10px;top:5px">
                                         </span>
 
                                         <ul class="dropdown-menu" :class="`dropdown-menu-child-${index}`"
@@ -69,7 +69,7 @@ const handleShowMenuGrand = (index) => {
                                                 <span class="dropdown-toggle dropdown-toggle-icon"
                                                     v-if="child.children.length > 0" data-toggle="dropdown"
                                                     style="position: absolute;right:-10px;top:5px"
-                                                    @click="handleShowMenuGrand(index)" aria-label="dropdown">
+                                                    @click="handleShowMenuGrand(index)">
                                                 </span>
 
                                                 <ul class="dropdown-menu" :class="`dropdown-menu-grand-${index}`"
@@ -86,12 +86,14 @@ const handleShowMenuGrand = (index) => {
 
                             </div>
                             <div class="right-nav align-items-center d-flex justify-content-end">
-                                <div class="search-icon"> <a id="search" href="javascript:void(0)"><i
-                                            class="las la-search"></i></a>
+                                <div class="search-icon">
+                                    <span id="search">
+                                        <i class="las la-search"></i>
+                                    </span>
                                 </div>
 
                                 <div class="cart ms-4">
-                                    <NuxtLink data-bs-toggle="modal" data-bs-target="#cartModal" to="/gio-hang">
+                                    <NuxtLink to="/gio-hang" aria-label="gio hang">
                                         <span class="white-bg px-2 py-1 shadow-sm" id="header-cart-btn"
                                             :data-cart-items="countCart">
                                             <i class="las la-shopping-cart"></i>
@@ -130,8 +132,8 @@ header {
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
-#header-wrap{
-    background: #f8f9fa!important;
+#header-wrap {
+    background: #f8f9fa !important;
 }
 
 .navbar-light .navbar-nav .nav-link {
