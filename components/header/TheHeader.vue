@@ -21,6 +21,15 @@ const handleShowMenuChild = (index) => {
 const handleShowMenuGrand = (index) => {
     document.querySelector(`.dropdown-menu-grand-${index}`).classList.toggle('show');
 }
+
+const handleShowSearch = () => {
+    document.getElementById('search-input-box').style.display = 'block';
+}
+
+const handleCloseSearch = ()=>{
+    document.getElementById('search-input-box').style.display = 'none';
+}
+
 </script>
 
 <template>
@@ -63,7 +72,7 @@ const handleShowMenuGrand = (index) => {
                                             v-if="menu.children.length > 0">
                                             <li class="dropdown-submenu" v-for="(child, index) in menu.children"
                                                 :key="index">
-                                                <NuxtLink class="dropdown-item dropdown-toggle" :to="child.url">
+                                                <NuxtLink class="dropdown-item" :to="child.url">
                                                     {{ child.title }}</NuxtLink>
 
                                                 <span class="dropdown-toggle dropdown-toggle-icon"
@@ -86,7 +95,7 @@ const handleShowMenuGrand = (index) => {
 
                             </div>
                             <div class="right-nav align-items-center d-flex justify-content-end">
-                                <div class="search-icon">
+                                <div class="search-icon" @click="handleShowSearch">
                                     <span id="search">
                                         <i class="las la-search"></i>
                                     </span>
@@ -124,7 +133,29 @@ const handleShowMenuGrand = (index) => {
                 </div>
             </div>
         </div>
+
+        <div class="search-input" id="search-input-box">
+            <div class="search-inner-box">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <form role="search" id="search-form" action="/tim-kiem"
+                                class="search-form d-flex justify-content-between search-inner">
+                                <label>
+                                    <input type="search" class="search-field" placeholder="Tm kiếm" value="" name="q">
+                                </label>
+                                <button type="submit" class="search-submit">
+                                    <i class="las la-search"></i>
+                                </button>
+                                <span class="las la-times close-search" id="close-search" title="Close Search" @click="handleCloseSearch"></span>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </header>
+
 </template>
 
 <style scoped>
@@ -153,9 +184,17 @@ header {
     background: none;
     padding: 5px 0;
     padding-right: 15px;
-    color: #ffffff;
+    color: #ffffff !important;
     position: relative;
     display: inline-block;
+}
+
+.nav-item.dropdown .dropdown-menu a:before {
+    opacity: 1;
+    left: -17px;
+    color: #ffffff;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
 }
 
 .navbar-nav .dropdown-menu a:hover {
@@ -167,7 +206,7 @@ header {
 .nav-item.dropdown .dropdown-menu a:hover:before {
     opacity: 1;
     left: 0;
-    color: #1176d3;
+    color: #ffffff;
     -webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
 }
@@ -292,6 +331,13 @@ header {
 
     .dropdown-toggle-icon {
         top: 15px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    #search-form {
+        margin: 0 !important;
+        width: 82%;
     }
 }
 </style>

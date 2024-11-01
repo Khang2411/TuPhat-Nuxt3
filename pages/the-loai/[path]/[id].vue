@@ -7,7 +7,7 @@ import TheBreadcrumb from '@/components/Breadcrumb/TheBreadcrumb.vue';
 
 const route = useRoute()
 const apiURL = import.meta.env.VITE_API_URL;
-const data = await $fetch(`${apiURL}/${route.params.path}-ca${route.params.id}?page=${route.query.page}`)
+const data = await $fetch(`${apiURL}/${route.params.path}-ca${route.params.id}?page=${route.query.page ? route.query.page : 1}`)
 const dataCate = ref(data)
 
 useSeoMeta({

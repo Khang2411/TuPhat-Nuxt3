@@ -19,12 +19,24 @@ const route = useRoute()
 const thumbsSwiper = ref(null);
 const apiURL = import.meta.env.VITE_API_URL;
 const url = import.meta.env.VITE_URL;
+const attributeIndex = ref(0);
+
+const data = await $fetch(`${apiURL}/${route.params.path}-pr${route.params.id}?view=${!isMobile() ? 'desktop' : 'mobile'}`)
+const productChild = ref(data.product.childProducts[0])
+
+useSeoMeta({
+    title: data.product.product_name,
+    ogTitle: data.config_custom.meta_title ? data.config_custom.meta_title : data.product.product_name,
+    description: data.config_custom.meta_description ? data.config_custom.meta_description : data.product.product_name,
+    ogDescription: data.config_custom.meta_description ? data.config_custom.meta_description : data.product.product_name,
+    ogImage: data.product.product_avatar,
+    twitterCard: 'summary_large_image',
+})
 
 const setThumbsSwiper = (swiper) => {
     thumbsSwiper.value = swiper;
 };
 
-const data = await $fetch(`${apiURL}/${route.params.path}-pr${route.params.id}?view=${!isMobile() ? 'desktop' : 'mobile'}`)
 
 const handleDesc = () => {
     document.getElementById("home").style.display = "block";
@@ -46,8 +58,6 @@ const handleSpec = () => {
 
     document.getElementById("profile-tab").classList.add("active");
     document.getElementById("home-tab").classList.remove("active");
-
-
 }
 
 const handleQuantity = (name) => {
@@ -96,14 +106,39 @@ const handleBuyNow = (productId) => {
     });
 }
 
-useSeoMeta({
-    title: data.product.product_name,
-    ogTitle: data.config_custom.meta_title ? data.config_custom.meta_title : data.product.product_name,
-    description: data.config_custom.meta_description ? data.config_custom.meta_description : data.product.product_name,
-    ogDescription: data.config_custom.meta_description ? data.config_custom.meta_description : data.product.product_name,
-    ogImage: data.product.product_avatar,
-    twitterCard: 'summary_large_image',
-})
+const handleAttribute = (e, index) => {
+    attributeIndex.value = index
+    data.product.childProducts.forEach((item) => {
+        if (item.product_child_id === Object.values(data.attribute)[index][0]) {
+            productChild.value = item
+        }
+    });
+
+    // remove and add active
+    for (let i = 0; i < document.querySelectorAll('.item_attribute1').length; i++) {
+        document.querySelectorAll('.item_attribute1')[i].classList.remove('active');
+    }
+
+    for (let i = 0; i < document.querySelectorAll('.item_attribute2').length; i++) {
+        document.querySelectorAll('.item_attribute2')[i].classList.remove('active');
+    }
+    e.target.classList.add('active')
+
+    document.querySelector('.item_attribute2') !== null && document.querySelectorAll('.item_attribute2')[0].classList.add('active');
+}
+
+const handleAttribute2 = (e, id) => {
+    data.product.childProducts.forEach((item) => {
+        if (item.product_child_id === id) {
+            productChild.value = item
+        }
+    });
+
+    for (let i = 0; i < document.querySelectorAll('.item_attribute2').length; i++) {
+        document.querySelectorAll('.item_attribute2')[i].classList.remove('active');
+    }
+    e.target.classList.add('active')
+}
 
 </script>
 
@@ -149,21 +184,53 @@ useSeoMeta({
                                     }}</span>
                             </div>
 
+
                             <div class="product-price my-4">
                                 <span class="product-price text-dark" style="font-size: 21px;"
-                                    v-if="data.product.childProducts[0].product_price_sale">
+                                    v-if="productChild.product_price_sale">
                                     <del class="mr-2">
                                         {{ new Intl.NumberFormat('vi-VN', {
                                             currency: 'VND'
-                                        }).format(data.product.childProducts[0].product_price) }}
+                                        }).format(productChild.product_price) }}
                                         đ</del>
 
                                     <span style="color:#003789 ; font-size: 28px;">
                                         {{ new Intl.NumberFormat('vi-VN', {
                                             currency: 'VND'
-                                        }).format(data.product.childProducts[0].product_price_sale) }} đ </span>
+                                        }).format(productChild.product_price_sale) }} đ </span>
                                 </span>
+                            </div>
 
+                            <div class="mb-4" v-if="productChild.attribute_name1">
+                                <div class="attribute-child d-flex align-items-center">
+                                    <label class="attribute-name text-bold mr-2">{{
+                                        productChild.attribute_name1 }}:
+                                    </label>
+                                    <div class="list-attribute">
+                                        <div class="item hover-bg item-attribute1 item_attribute1"
+                                            :class="index === 0 && 'active'"
+                                            v-for="(attr, index) in Object.keys(data.attribute)" :key="index"
+                                            @click="(e) => handleAttribute(e, index)">
+
+                                            {{ attr }}
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="attribute-child d-flex align-items-center mt-3"
+                                    v-if="productChild.attribute_name2">
+                                    <label class="attribute-name text-bold mr-2">{{
+                                        productChild.attribute_name2 }}:
+                                    </label>
+                                    <div class="list-attribute">
+                                        <div class="item hover-bg item_attribute2" :class="index === 0 && 'active'"
+                                            v-for="(attr, index) in Object.values(data.attribute)[attributeIndex]"
+                                            :key="index" @click="(e) => handleAttribute2(e, attr)">
+                                            {{ attr }}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div v-html="data.product.product_brief"></div>
@@ -184,11 +251,11 @@ useSeoMeta({
                                 </div>
                                 <div class="product-link d-flex align-items-center mt-5">
                                     <button class="primary-btn mr-3" type="button"
-                                        @click="handleAddToCart(data.product.childProducts[0].product_child_id)">
+                                        @click="handleAddToCart(productChild.product_child_id)">
                                         <span>Thêm vào giỏ hàng</span>
                                     </button>
                                     <button class="primary-btn" type="button"
-                                        @click="handleBuyNow(data.product.childProducts[0].product_child_id)">
+                                        @click="handleBuyNow(productChild.product_child_id)">
                                         <span>Mua ngay</span>
                                     </button>
                                 </div>
@@ -360,6 +427,31 @@ h3 {
     font-style: normal;
     line-height: 40px;
     font-weight: 600;
+}
+
+.list-attribute {
+    display: flex;
+    flex-wrap: wrap;
+    flex: auto;
+    gap: 5px;
+    width: auto;
+}
+
+.list-attribute .item.active {
+    background-color: #003789 !important;
+    color: #fff;
+}
+
+.list-attribute .item {
+    float: left;
+    padding: .5rem;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #003789 !important;
+    margin: 0 5px;
+    border-radius: 5px;
+    width: 40%;
+    cursor: pointer;
 }
 
 .btn-product {
