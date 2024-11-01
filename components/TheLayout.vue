@@ -20,20 +20,6 @@ useSeoMeta({
   ogImage: dataConfig.logo_header,
   twitterCard: 'summary_large_image',
 })
-
-onBeforeMount(() => {
-  const installFacebookSdkScript = (d, s, id) => {
-    let fjs = d.getElementsByTagName(s)[0]
-    let js = d.createElement(s)
-    js.id = id
-    js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v21.0&appId=1438807890055526'
-    js.async = true
-    js.defer = true
-    js.crossorigin='anonymous'
-    fjs.parentNode.insertBefore(js, fjs)
-  }
-  installFacebookSdkScript(document, 'script', 'facebook-jssdk')
-})
 </script>
 
 <template>

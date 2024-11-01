@@ -29,7 +29,7 @@ const data = await $fetch(`${apiURL}/${route.params.path}-pr${route.params.id}?v
 const handleDesc = () => {
     document.getElementById("home").style.display = "block";
     document.getElementById("profile").style.display = "none";
-    
+
     document.getElementById("home").classList.add("show");
     document.getElementById("profile").classList.remove("show");
 
