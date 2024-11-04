@@ -1,6 +1,8 @@
 <script setup>
 import ThePaginate from '../Paginate/ThePaginate.vue';
+import { useRoute } from 'vue-router'
 
+const router = useRouter()
 defineProps({
     categories: Object
 })
@@ -11,6 +13,21 @@ const truncateString = (str, num) => {
     }
     return str.slice(0, num) + '...'
 }
+
+const handleFilter = (e) => {
+    e.preventDefault();
+    router.push({
+        query: {
+            price_from: e.target.price_from.value,
+            price_to: e.target.price_to.value,
+            sorted_price: e.target.sorted_price.value,
+            item_per_page: e.target.item_per_page.value,
+            sorted_by: e.target.sorted_by.value,
+            page: 1
+        }
+    })
+
+}
 </script>
 
 <template>
@@ -18,16 +35,16 @@ const truncateString = (str, num) => {
         <div class="container">
             <div class="row mb-5">
                 <div class="col">
-                    <form action="">
+                    <form action="" @submit="handleFilter">
                         <div style="display: flex; gap:5px;justify-content: end;">
                             <div class="form-group">
                                 <input type="number" class="form-control form-filter" min="0" placeholder="Giá từ"
-                                    style="max-width: 150px;">
+                                    name="price_from" style="max-width: 150px;">
                             </div>
 
                             <div class="form-group">
                                 <input type="number" class="form-control form-filter" min="0" placeholder="Giá đến"
-                                    style="max-width: 150px;">
+                                    name="price_to" style="max-width: 150px;">
                             </div>
 
                             <div class="form-group">
@@ -42,27 +59,34 @@ const truncateString = (str, num) => {
                             </div>
 
                             <div class="form-group">
-                                <select class="form-control form-filter">
-                                    <option disabled selected>Xếp theo giá</option>
-                                    <option>Thấp đến Cao</option>
-                                    <option>Cao đến thấp</option>
+                                <select class="form-control form-filter" name="sorted_price">
+                                    <option selected value="">Xếp theo giá</option>
+                                    <option value="low2high" :selected="$route.query.sorted_price === 'low2high'">
+                                        Thấp đến Cao</option>
+
+                                    <option value="high2low" :selected="$route.query.sorted_price === 'high2low'">
+                                        Cao đến thấp</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <select class="form-control form-filter" style="padding-inline: 5px 30px;">
-                                    <option disabled selected>Hiển thị</option>
-                                    <option>20</option>
-                                    <option>50</option>
-                                    <option>100</option>
+                                <select class="form-control form-filter" style="padding-inline: 5px 30px;"
+                                    name="item_per_page">
+                                    <option selected value="">Hiển thị</option>
+                                    <option value="20" :selected="$route.query.item_per_page === '20'">20</option>
+                                    <option value="50" :selected="$route.query.item_per_page === '50'">50</option>
+                                    <option value="100" :selected="$route.query.item_per_page === '100'">100</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <select class="form-control form-filter" style="padding-inline: 5px 30px;">
-                                    <option disabled selected>Trạng thái</option>
-                                    <option>Mới nhất</option>
-                                    <option>Cũ nhất</option>
+                                <select class="form-control form-filter" style="padding-inline: 5px 30px;"
+                                    name="sorted_by">
+                                    <option selected value="">Trạng thái</option>
+                                    <option value="newest" :selected="$route.query.sorted_by === 'newest'">Mới nhất
+                                    </option>
+                                    <option value="oldest" :selected="$route.query.sorted_by === 'oldest'">Cũ nhất
+                                    </option>
                                 </select>
                             </div>
                         </div>

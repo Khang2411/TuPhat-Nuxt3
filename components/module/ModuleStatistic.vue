@@ -19,7 +19,7 @@ defineProps({
                                     :title="statistic.item_slide_image_title">
                             </div>
                             <div class="counter-desc">
-                                <Vue3Odometer class="o-text-odometer" format="d"
+                                <div class="o-text-odometer" format="d"
                                     :data-odometer="statistic.item_slide_value" />
                                 <span>{{statistic.item_slide_value}}+</span>
                                 <p class="counter-icon-title">{{ statistic.item_slide_title }}</p>

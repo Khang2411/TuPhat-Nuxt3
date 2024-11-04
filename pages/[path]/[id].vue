@@ -33,6 +33,60 @@ useSeoMeta({
     twitterCard: 'summary_large_image',
 })
 
+useHead({
+    script: [{
+        type: 'application/ld+json',
+        innerHTML:
+        {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "@id": "https://schemaapp.com/highlighter/#Product",
+            "name": data.product.product_name,
+            "image": data.product.product_avatar,
+            "description": data.product.product_name,
+            "price": data.product.childProducts[0].product_price_sale ? data.product.childProducts[0].product_price_sale : data.product.childProducts[0].product_price,
+            "brand": {
+                "@type": "Organization",
+                "@id": "https://schemaapp.com/#Organization",
+                "name": data.product.product_sku,
+            }
+        }
+    }],
+})
+
+useHead({
+    script: [{
+        type: 'application/ld+json',
+        innerHTML:
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement":
+                [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "item":
+                        {
+                            "@id": url,
+                            "name": "Trang chủ"
+                        }
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "item":
+                        {
+                            "@id": url + route.fullPath,
+                            "name": data.product.product_name
+                        }
+                    }
+                ]
+        }
+    }],
+})
+
+
 const setThumbsSwiper = (swiper) => {
     thumbsSwiper.value = swiper;
 };

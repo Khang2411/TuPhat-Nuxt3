@@ -14,13 +14,61 @@ const route = useRoute()
 const data = await $fetch(`${apiURL}/${route.params.path}-p${route.params.id}?view=${!isMobile() ? 'desktop' : 'mobile'}`)
 
 useSeoMeta({
-  title: data.news.post_title,
-  ogTitle: data.news.post_title,
-  description: data.news.post_title,
-  ogDescription: data.news.post_title,
-  ogImage: data.news.post_thumbnail,
-  twitterCard: 'summary_large_image',
+    title: data.news.post_title,
+    ogTitle: data.news.post_title,
+    description: data.news.post_title,
+    ogDescription: data.news.post_title,
+    ogImage: data.news.post_thumbnail,
+    twitterCard: 'summary_large_image',
 })
+
+useHead({
+    script: [{
+        type: 'application/ld+json',
+        innerHTML:
+        {
+            "@context": "https://schema.org",
+            "@type": "NewsArticle",
+            "headline": data.news.post_title,
+            "image": [data.news.post_thumbnail],
+            "datePublished": data.news.created_at,
+            "author": [{ "@type": "Person", "name": "Admin", "url": url }]
+        }
+    }],
+})
+
+useHead({
+    script: [{
+        type: 'application/ld+json',
+        innerHTML:
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement":
+                [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "item":
+                        {
+                            "@id": url,
+                            "name": "Trang chủ"
+                        }
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "item":
+                        {
+                            "@id": url + route.fullPath,
+                            "name": data.news.post_title
+                        }
+                    }
+                ]
+        }
+    }],
+})
+
 </script>
 
 <template>

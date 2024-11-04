@@ -7,7 +7,17 @@ import TheBreadcrumb from '@/components/Breadcrumb/TheBreadcrumb.vue';
 
 const route = useRoute()
 const apiURL = import.meta.env.VITE_API_URL;
-const data = await $fetch(`${apiURL}/${route.params.path}-ca${route.params.id}?page=${route.query.page ? route.query.page : 1}`)
+
+const filters = {
+  page: route.query.page ? route.query.page : 1,
+  price_from: route.query.price_from || '',
+  price_to: route.query.price_to || '',
+  sorted_price: route.query.sorted_price || '',
+  item_per_page: route.query.item_per_page || 12,
+  sorted_by: route.query.sorted_by || ''
+}
+
+const data = await $fetch(`${apiURL}/${route.params.path}-ca${route.params.id}?price_from=${filters.price_from}&price_to=${filters.price_to}&sorted_price=${filters.sorted_price}&item_per_page=${filters.item_per_page}&sorted_by=${filters.sorted_by}&page=${filters.page}`)
 const dataCate = ref(data)
 
 useSeoMeta({
@@ -18,7 +28,8 @@ useSeoMeta({
 })
 
 watch(route, async (current) => {
-  dataCate.value = await $fetch(`${apiURL}/${current.params.path}-ca${current.params.id}?page=${current.query.page}`, {
+  console.log(current.sorted_price)
+  dataCate.value = await $fetch(`${apiURL}/${current.params.path}-ca${current.params.id}?price_from=${current.query.price_from}&price_to=${current.query.price_to}&sorted_price=${current.query.sorted_price}&item_per_page=${current.query.item_per_page}&sorted_by=${current.query.sorted_by}&page=${current.query.page}`, {
     async onRequest() {
       document.getElementById("ht-preloader").style.display = "flex";
     },
